@@ -1,0 +1,27 @@
+-- CreateTable
+CREATE TABLE `CountryList` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL,
+
+    UNIQUE INDEX `CountryList_name_key`(`name`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `CountryInfo` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `countryId` INTEGER NOT NULL,
+    `month` ENUM('JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER') NOT NULL DEFAULT 'JANUARY',
+    `infected` INTEGER NOT NULL DEFAULT 0,
+    `dead` INTEGER NOT NULL DEFAULT 0,
+    `recovered` INTEGER NOT NULL DEFAULT 0,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `CountryInfo` ADD CONSTRAINT `CountryInfo_countryId_fkey` FOREIGN KEY (`countryId`) REFERENCES `CountryList`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
